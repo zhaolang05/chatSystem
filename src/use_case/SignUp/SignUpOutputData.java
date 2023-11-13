@@ -1,4 +1,5 @@
 package use_case.SignUp;
+import entity.CommonUser;
 
 public class SignUpOutputData {
     private final String userName;
