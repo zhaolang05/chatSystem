@@ -1,5 +1,6 @@
 package data_access;
 
+=======
 import entity.CommonUser;
 import use_case.LogIn.LogInUserDataAccessInterface;
 import use_case.signUp.SignUpUserDataAccessInterface;
@@ -9,7 +10,7 @@ import use_case.changeUsername.ChangeUsernameDataAccessInterface;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements SignUpUserDataAccessInterface, LogInUserDataAccessInterface, ChangeUsernameDataAccessInterface{
+public class FileUserDataAccessObject implements SignUpUserDataAccessInterface, LogInUserDataAccessInterface, ForgotPasswordUserDataAccessinterface, ChangeUsernameDataAccessInterface{
 
     private final Map<int[], CommonUser> userIDs = new HashMap<>();
     private final Map<String, CommonUser> accounts = new HashMap<>();
@@ -34,9 +35,14 @@ public class FileUserDataAccessObject implements SignUpUserDataAccessInterface, 
         accounts.put(user.getUserName(), user);
         userIDs.put(user.getUserID(), user);
 
+   public User getUser(String username) {
+        return accounts.get(username);
     }
-
-    @Override
+  
+   public User getUser(String username) {
+        return accounts.get(username);
+    }
+  
     public boolean existID(int[] identity) {
         return userIDs.containsKey(identity);
     }
@@ -47,5 +53,5 @@ public class FileUserDataAccessObject implements SignUpUserDataAccessInterface, 
     public CommonUser getLoggedinUser(int[] identity) {
         return userIDs.get(identity);
     }
-
-}
+  
+  
