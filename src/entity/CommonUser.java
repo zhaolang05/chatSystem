@@ -1,31 +1,33 @@
 package entity;
 
-class CommonUser implements User{
-    private final String userName;
-    private String password;
 
+public class CommonUser implements User{
+    private String userName;
+    private String accountPassword;
 
-    CommonUser(String username, String password) {
-        this.userName = username;
-        this.password = password;
+    private int[] userID;
+
+    public CommonUser(String userName, String accountPassword, int[] userID){
+        this.userName = userName;
+        this.accountPassword = accountPassword;
+        this.userID = userID;
     }
+    private void setAccountPassword(String password) {accountPassword = password;}
+
+    public String getUserName(){return userName;}
+
+    public String getAccountPassword(){return accountPassword;}
 
 
     @Override
-    public String getUsername() {
-        return userName;
+    public void setUserName(String name) {
+        this.userName = name;
+
     }
 
-    @Override
-    public String getPassword() {
-        return password;
+    public int[] getUserID(){
+        return userID;
     }
-
-    @Override
-    public void setPassword(String password) {
-       this.password = password;
-    }
-
 
 
 }

@@ -1,49 +1,57 @@
 package data_access;
 
-import entity.User;
-import use_case.ForgotPassword.ForgotPasswordUserDataAccessInterface;
-import use_case.login.LoginUserDataAccessInterface;
+=======
+import entity.CommonUser;
+import use_case.LogIn.LogInUserDataAccessInterface;
+import use_case.signUp.SignUpUserDataAccessInterface;
+import use_case.changeUsername.ChangeUsernameDataAccessInterface;
+
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements LoginUserDataAccessInterface, ForgotPasswordUserDataAccessInterface {
-    private final Map<String, User> accounts = new HashMap<>();
-    private final Map<String, Integer> headers = new LinkedHashMap<>();
+public class FileUserDataAccessObject implements SignUpUserDataAccessInterface, LogInUserDataAccessInterface, ForgotPasswordUserDataAccessinterface, ChangeUsernameDataAccessInterface{
+
+    private final Map<int[], CommonUser> userIDs = new HashMap<>();
+    private final Map<String, CommonUser> accounts = new HashMap<>();
+
+    public CommonUser retrieve(String userID){return userIDs.get(userID);}
+
+    public CommonUser get(String username) {
+            return accounts.get(username);
+        }
 
 
-    public void FileUserDataAccessObject(){}
-
+//         * @param identifier the username to check.
+//         * @return whether a user exists with username identifier
+//         */
     @Override
-    public boolean existsByName(String identifier) {
-       return accounts.containsKey(identifier);
+    public boolean existByName(String identity) {
+        return accounts.containsKey(identity);
     }
 
     @Override
-    public void save(User user) {
-        accounts.put(user.getUsername(), user);
-        this.save();
+    public void save(CommonUser user) {
+        accounts.put(user.getUserName(), user);
+        userIDs.put(user.getUserID(), user);
 
-    }
-
-    private void save() {
-
-    }
-
-    @Override
-    public User getUser(String username) {
+   public User getUser(String username) {
         return accounts.get(username);
     }
-
-
-    @Override
-    public boolean existByName(String identifier) {
-        return false;
+  
+   public User getUser(String username) {
+        return accounts.get(username);
+    }
+  
+    public boolean existID(int[] identity) {
+        return userIDs.containsKey(identity);
     }
 
-    @Override
-    public void savePassword(User user, String password) {
+    public boolean containsUser(String username){return accounts.containsKey(username);}
 
+    @Override
+    public CommonUser getLoggedinUser(int[] identity) {
+        return userIDs.get(identity);
     }
-}
+  
+  
