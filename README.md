@@ -6,7 +6,8 @@ JDK >= 17
 ## Setting up the Database
 
 ## Running the application
-Run the main method - **TBA**
+ChatServerApplication 
+ChatClientApplication
 ## Account Creation Notes
 ### Function
 - Sign up & sign in
@@ -14,8 +15,9 @@ Run the main method - **TBA**
 ### Possible Additional Function
 - Multiple account creation
 - Sign in with other account (example: Google account)
-### API Interaction - TBA
-
+### Chat Server API
+- save user 
+- check user info
 ## Account Modification Notes
 ### Function
 - Change username
@@ -23,7 +25,9 @@ Run the main method - **TBA**
 - Change personal profile
 ### Possible Additional Function
 - Upload an avatar to personal profile (using .jpg file)
-### API Interaction - TBA
+### Chat Server API 
+- check user info
+- save user
 
 ## User Interaction Notes
 Friend limit :10 (increase or decrease by changing the FRIEND_LIMIT in SendFriendRequestHelper)
@@ -35,13 +39,16 @@ Friend limit :10 (increase or decrease by changing the FRIEND_LIMIT in SendFrien
 - Look through friend list
 ### Possible Additional Function
 - Look through friend's profile
-### API Interaction - TBA
-
+### Chat Server API 
+- Search friends
+- Send friend requests
+- Add & delete friends
+- Accept or deny friend request
 ## Chat System Notes
 ### Function 
-- Send & receive message[text]
+- Send & receive & save message[text]
 ### Possible Additional Function
-- Search for chat history[by text]
-### API Interaction - TBA
+- Search for chat history[by text][only local message]
+
 
 ## Testing notes
