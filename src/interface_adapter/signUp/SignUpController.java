@@ -1,7 +1,7 @@
 package interface_adapter.signUp;
 
-import use_case.SignUp.SignUpInputData;
-import use_case.SignUp.SignUpInteractor;
+import use_case.signUp.SignUpInputData;
+import use_case.signUp.SignUpInteractor;
 
 public class SignUpController {
     private SignUpInteractor signUpInteractor;

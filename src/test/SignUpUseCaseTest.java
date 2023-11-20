@@ -2,8 +2,8 @@ import data_access.FileUserDataAccessObject;
 import entity.CommonUser;
 import org.junit.Test;
 
-import use_case.SignUp.*;
-import data_access.FileUserDataAccessObject;
+import use_case.signUp.*;
+
 import static org.junit.Assert.*;
 
 public class SignUpUseCaseTest {
@@ -55,7 +55,8 @@ public class SignUpUseCaseTest {
    @Test
     public void failureUserExistsTest() {
         FileUserDataAccessObject userRepository = new FileUserDataAccessObject();
-        CommonUser user = new CommonUser("kerry", "777");
+        int[] userid = SignUpInteractor.userIdGenerator();
+        CommonUser user = new CommonUser("kerry", "777", userid);
         userRepository.save(user);
 
         SignUpInputData inputData = new SignUpInputData("kerry", "456", "458");

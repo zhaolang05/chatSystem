@@ -2,6 +2,6 @@ package entity;
 
 public interface User{
 
-    void changeName(String name);
-    private void changePassword(String name){};
+    void setUserName(String name);
+    private void setAccountPassword(String name){};
 }

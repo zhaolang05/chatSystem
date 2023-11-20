@@ -214,7 +214,6 @@ public class SignUpView extends JPanel implements ActionListener, PropertyChange
              SignUpState state = (SignUpState) evt.getNewValue();
             if (state.getUsernameError() != null) {
                 JOptionPane.showMessageDialog(this, state.getUsernameError());
-
             }}
     }
 
