@@ -49,21 +49,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         buttons.add(logIn);
         logIn.addActionListener(this);
 
-//        logIn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
-//                new ActionListener() {
-//                    public void actionPerformed(ActionEvent evt) {
-//                        if (evt.getSource().equals(logIn)) {
-//                            LoginState currentState = loginViewModel.getState();
-//
-//                            loginController.execute(
-//                                    currentState.getUsername(),
-//                                    currentState.getPassword()
-//                            );
-//                        }
-//                    }
-//                }
-//        );
-
 
         usernameInputField.addKeyListener(new KeyListener() {
             @Override
@@ -134,3 +119,4 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     }
 
 }
+

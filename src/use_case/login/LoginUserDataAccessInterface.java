@@ -1,5 +1,6 @@
 package use_case.login;
 
+
 import entity.CommonUser;
 
 public interface LoginUserDataAccessInterface {
@@ -8,4 +9,5 @@ public interface LoginUserDataAccessInterface {
     void save(CommonUser user);
 
     CommonUser get(String username);
+
 }
