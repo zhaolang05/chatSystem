@@ -1,7 +1,7 @@
 package interface_adapter.signUp;
 
-import interface_adapter.LogIn.LogInState;
-import interface_adapter.LogIn.LogInViewModel;
+import interface_adapter.login.LoginState;
+import interface_adapter.login.LoginViewModel;
 import interface_adapter.ViewManagerModel;
 import use_case.signUp.SignUpOutputBoundary;
 import use_case.signUp.SignUpOutputData;
@@ -9,12 +9,12 @@ import use_case.signUp.SignUpOutputData;
 public class SignUpPresenter implements SignUpOutputBoundary {
 
     private final SignUpViewModel signupViewModel;
-    private final LogInViewModel loginViewModel;
+    private final LoginViewModel loginViewModel;
     private ViewManagerModel viewManagerModel;
 
     public SignUpPresenter(ViewManagerModel viewManagerModel,
                            SignUpViewModel signupViewModel,
-                           LogInViewModel loginViewModel) {
+                           LoginViewModel loginViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.signupViewModel = signupViewModel;
         this.loginViewModel = loginViewModel;
@@ -23,7 +23,7 @@ public class SignUpPresenter implements SignUpOutputBoundary {
 
     @Override
     public void prepareSuccessView(SignUpOutputData response) {
-        LogInState loginState = loginViewModel.getState();
+        LoginState loginState = loginViewModel.getState();
         loginState.setUsername(response.getUsername());
         this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();

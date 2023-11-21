@@ -18,8 +18,8 @@ public class SignUpViewModel extends ViewModel {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     private SignUpState state = new SignUpState();
-    public SignUpViewModel(String viewName) {
-        super(viewName);
+    public SignUpViewModel() {
+        super("Sign up");
     }
 
     @Override

@@ -14,7 +14,7 @@ public class SignUpInteractor implements SignUpInputBoundary {
 
     @Override
     public void execute(SignUpInputData signUpInputData) {
-        if (userDataAccessObject.existByName(signUpInputData.getUserName())) {
+        if (userDataAccessObject.existsByName(signUpInputData.getUserName())) {
             userPresenter.prepareFailView("Username already exists");
         } else if (!signUpInputData.getAccountPassword().equals(signUpInputData.getRepeatAccountPassword())) {
             userPresenter.prepareFailView("Passwords do not match");
@@ -25,6 +25,8 @@ public class SignUpInteractor implements SignUpInputBoundary {
             }
             CommonUser user = new CommonUser(signUpInputData.getUserName(), signUpInputData.getAccountPassword(), userID);
             userDataAccessObject.save(user);
+            SignUpOutputData outputData = new SignUpOutputData(user.getUserName());
+            userPresenter.prepareSuccessView(outputData);
         }
     }
     public static int[] userIdGenerator() {

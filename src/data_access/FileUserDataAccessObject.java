@@ -1,7 +1,8 @@
 package data_access;
 
 import entity.CommonUser;
-import use_case.LogIn.LogInUserDataAccessInterface;
+import use_case.login.LoginUserDataAccessInterface;
+import use_case.login.LoginUserDataAccessInterface;
 import use_case.signUp.SignUpUserDataAccessInterface;
 import use_case.changeUsername.ChangeUsernameDataAccessInterface;
 
@@ -9,7 +10,7 @@ import use_case.changeUsername.ChangeUsernameDataAccessInterface;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements SignUpUserDataAccessInterface, LogInUserDataAccessInterface, ChangeUsernameDataAccessInterface{
+public class FileUserDataAccessObject implements SignUpUserDataAccessInterface, LoginUserDataAccessInterface, ChangeUsernameDataAccessInterface{
 
     private final Map<int[], CommonUser> userIDs = new HashMap<>();
     private final Map<String, CommonUser> accounts = new HashMap<>();
@@ -25,7 +26,7 @@ public class FileUserDataAccessObject implements SignUpUserDataAccessInterface, 
 //         * @return whether a user exists with username identifier
 //         */
     @Override
-    public boolean existByName(String identity) {
+    public boolean existsByName(String identity) {
         return accounts.containsKey(identity);
     }
 
