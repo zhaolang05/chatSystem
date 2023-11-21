@@ -1,5 +1,5 @@
 package view;
 
-public class LogInView {
+public class LogInView {aaa
 }
 在政治
