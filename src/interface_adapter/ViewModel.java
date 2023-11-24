@@ -1,10 +1,8 @@
-=======
-  package interface_adapter;
+package interface_adapter;
 
 import java.beans.PropertyChangeListener;
 
-  public abstract class ViewModel {
-
+public abstract class ViewModel {
     private String viewName;
 
     public ViewModel(String viewName) {
@@ -16,5 +14,4 @@ import java.beans.PropertyChangeListener;
 
     public abstract void firePropertyChanged();
     public abstract void addPropertyChangeListener(PropertyChangeListener listener);
-
-
+}

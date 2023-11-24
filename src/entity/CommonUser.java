@@ -12,7 +12,7 @@ public class CommonUser implements User{
         this.accountPassword = accountPassword;
         this.userID = userID;
     }
-    private void setAccountPassword(String password) {accountPassword = password;}
+    public void setAccountPassword(String password) {accountPassword = password;}
 
     public String getUserName(){return userName;}
 

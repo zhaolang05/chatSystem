@@ -1,8 +1,12 @@
 package entity;
 
-=======
-public interface User{
+public interface User {
 
     void setUserName(String name);
-    private void setAccountPassword(String name){};
 
+    public String getUserName();
+
+    public void setAccountPassword(String password);
+
+    public String getAccountPassword();
+}
