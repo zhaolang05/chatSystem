@@ -4,6 +4,7 @@ import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupState;
+import interface_adapter.signup.SignupViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +19,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
-
     final JTextField usernameInputField = new JTextField(15);
     private final JLabel usernameErrorField = new JLabel();
 
@@ -26,7 +26,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final JLabel passwordErrorField = new JLabel();
 
     final JButton logIn;
+    final JButton forgot;
     final JButton cancel;
+
     private final LoginController loginController;
 
     public LoginView(LoginViewModel loginViewModel, LoginController controller) {
@@ -46,10 +48,25 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         JPanel buttons = new JPanel();
         logIn = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
         buttons.add(logIn);
+        forgot = new JButton(loginViewModel.FORGOT_LABEL);
+        buttons.add(forgot);
         cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
-        logIn.addActionListener(
+        forgot.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(forgot)) {
+                            LoginState currentState = loginViewModel.getState();
+
+                            loginController.forgot(currentState.getUsername());
+                        }
+                    }
+                }
+        );
+
+        logIn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(logIn)) {
@@ -64,7 +81,18 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 }
         );
 
-        cancel.addActionListener(this);
+        cancel.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(e.getSource().equals(cancel)){
+                            LoginState currState = loginViewModel.getState();
+
+                            loginController.back();
+                        }
+                    }
+                }
+        );
 
         usernameInputField.addKeyListener(new KeyListener() {
             @Override
@@ -110,6 +138,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.add(buttons);
     }
 
+    /**
+     * React to a button click that results in evt.
+     */
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
     }
@@ -117,8 +148,11 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         LoginState state = (LoginState) evt.getNewValue();
-        setFields(state);
+        if (state.getUsernameError() != null){
+            JOptionPane.showMessageDialog(this, state.getUsernameError());
+        }
     }
+
 
     private void setFields(LoginState state) {
         usernameInputField.setText(state.getUsername());

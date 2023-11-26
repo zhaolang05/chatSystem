@@ -1,5 +1,6 @@
 package entity;
 
 public interface PasswordValidator {
-    public boolean validPassword(String password);
+    public boolean passwordIsValid(String password);
+
 }

@@ -1,33 +1,36 @@
 package entity;
 
+import java.time.LocalDateTime;
 
-public class CommonUser implements User{
-    private String userName;
-    private String accountPassword;
+class CommonUser implements User {
 
-    private int[] userID;
+    private final String name;
+    private final String password;
+    private final LocalDateTime creationTime;
 
-    public CommonUser(String userName, String accountPassword, int[] userID){
-        this.userName = userName;
-        this.accountPassword = accountPassword;
-        this.userID = userID;
+    /**
+     * Requires: password is valid.
+     * @param name
+     * @param password
+     */
+    CommonUser(String name, String password, LocalDateTime creationTime) {
+        this.name = name;
+        this.password = password;
+        this.creationTime = creationTime;
     }
-    public void setAccountPassword(String password) {accountPassword = password;}
-
-    public String getUserName(){return userName;}
-
-    public String getAccountPassword(){return accountPassword;}
-
 
     @Override
-    public void setUserName(String name) {
-        this.userName = name;
-
+    public String getName() {
+        return name;
     }
 
-    public int[] getUserID(){
-        return userID;
+    @Override
+    public String getPassword() {
+        return password;
     }
 
-
+    @Override
+    public LocalDateTime getCreationTime() {
+        return creationTime;
+    }
 }

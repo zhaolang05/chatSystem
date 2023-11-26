@@ -1,12 +1,12 @@
 package entity;
 
+import java.time.LocalDateTime;
+
 public interface User {
 
-    void setUserName(String name);
+    String getName();
 
-    public String getUserName();
+    String getPassword();
 
-    public void setAccountPassword(String password);
-
-    public String getAccountPassword();
+    LocalDateTime getCreationTime();
 }
