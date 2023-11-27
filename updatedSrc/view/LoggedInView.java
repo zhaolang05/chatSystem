@@ -89,10 +89,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     }
 
 
-
-    /**
-     * React to a button click that results in evt.
-     */
     public void actionPerformed(ActionEvent evt) {
         viewManagerModel.setActiveView("log in");
         viewManagerModel.firePropertyChanged();
@@ -101,9 +97,10 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println(evt.getNewValue() instanceof ChangeUsernameState);
         if (evt.getNewValue() instanceof ChangeUsernameState) {
             ChangeUsernameState state = (ChangeUsernameState) evt.getNewValue();
-            if (!state.getUsernameError().equals(null)){
+            if (state.getUsernameError() != null){
                 JOptionPane.showMessageDialog(this, state.getUsernameError().concat(". Please try again") );}
             else {
                 JOptionPane.showMessageDialog(this," Username changed to " + state.getNewUsername());
