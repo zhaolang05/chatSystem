@@ -23,7 +23,7 @@ public class ChangeUsernameInteractor implements ChangeUsernameInputBoundary {
             else{
         CommonUser user = dataAccessObject.get(loggedInViewModel.getState().getUsername());
         user.setUserName(inputData.getNewUsername());
-        dataAccessObject.save(user);
+        dataAccessObject.save();
         ChangeUsernameOutputData outputData = new ChangeUsernameOutputData(user.getUserName());
         presenter.prepareSuccessView(outputData);}
 
