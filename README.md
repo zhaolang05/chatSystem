@@ -13,6 +13,7 @@ JDK >= 17
 
 ## Running the application
 Running ChatServerApplication and ChatClientApplication will run the server and the client application.
+
 ## Account Creation Notes
 ### Function
 - Sign up & sign in
@@ -32,6 +33,7 @@ Friend limit :10 (increase or decrease by changing the FRIEND_LIMIT in SendFrien
 - Search friends
 - Add friends
 - Look through friend list
+
 ### Possible Additional Function in the future
 - Send friend requests
 - Agree or deny a friend requests
@@ -41,4 +43,18 @@ Friend limit :10 (increase or decrease by changing the FRIEND_LIMIT in SendFrien
 - Send & receive & save message
 ### Possible Additional Function in the future
 - Search for chat history
+
+### Possible Additional Function
+- Look through friend's profile
+### Chat Server API 
+- Search friends
+- Send friend requests
+- Add & delete friends
+- Accept or deny friend request
+## Chat System Notes
+### Function 
+- Send & receive & save message[text]
+### Possible Additional Function
+- Search for chat history[by text][only local message]
+
 
