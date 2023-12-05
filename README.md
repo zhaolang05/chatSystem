@@ -16,9 +16,10 @@ Running ChatServerApplication and ChatClientApplication will run the server and 
 ## Account Creation Notes
 ### Function
 - Sign up & sign in
+- Username check: whether the username exists and password check: whether it matches when entering the second time.
 ### Possible Additional Function in the future
 - Multiple account creation
-- Illegal username and password check: only check for illegal symbal and whehter it is exist.
+- Illegal username and password check: check for illegal symbal.
 
 ## Account Modification Notes
 ### Function
