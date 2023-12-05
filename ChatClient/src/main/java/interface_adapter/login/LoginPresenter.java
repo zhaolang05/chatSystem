@@ -41,7 +41,9 @@ public class LoginPresenter implements LoginOutputBoundary {
     public void prepareSuccessView(LoginOutputData response) {
         // On success, switch to the logged in view.
         application.setVisible(false);
+
         ChatInputData chatInputData=new ChatInputData();
+        chatInputData.setApplication(application);
         chatInputData.setUser(response.getUser());
         chatInputData.setFriendList(response.getFriends());
         chatMainView.init(chatInputData);

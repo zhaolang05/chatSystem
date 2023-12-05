@@ -18,10 +18,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
 
-    final JTextField usernameInputField = new JTextField(15);
+    final JTextField usernameInputField = new JTextField(10);
     private final JLabel usernameErrorField = new JLabel();
 
-    final JPasswordField passwordInputField = new JPasswordField(15);
+    final JPasswordField passwordInputField = new JPasswordField(10);
     private final JLabel passwordErrorField = new JLabel();
 
     final JButton logIn;
@@ -36,11 +36,14 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
 
-        JLabel title = new JLabel("Login Screen");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JLabel title = new JLabel("Login");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JPanel titlePanel=new JPanel();
+        titlePanel.add(title);
         LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel("Username"), usernameInputField);
+
         LabelTextPanel passwordInfo = new LabelTextPanel(
                 new JLabel("Password"), passwordInputField);
 
@@ -50,8 +53,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
-        signup=new JLabel("signup");
-
+        signup=new JLabel("To signup");
+        usernameInfo.add(signup);
+        JLabel forgetLabel=new JLabel("Forgot pass");
+        passwordInfo.add(forgetLabel);
         signup.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -117,14 +122,14 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
             public void keyReleased(KeyEvent e) {
             }
         });
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
 
         passwordInputField.addKeyListener(
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent e) {
                         LoginState currentState = loginViewModel.getState();
-                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
+                        currentState.setPassword(new String(passwordInputField.getPassword()) + e.getKeyChar());
                         loginViewModel.setState(currentState);
                     }
 
@@ -137,13 +142,18 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                     }
                 });
 
-        this.add(title);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        this.add(titlePanel);
         this.add(usernameInfo);
-        this.add(usernameErrorField);
+
         this.add(passwordInfo);
-        this.add(passwordErrorField);
+
         this.add(buttons);
-        this.add(signup);
+
+
+        this.add(usernameErrorField);
+        this.add(passwordErrorField);
     }
 
     /**

@@ -5,13 +5,15 @@ import com.google.gson.reflect.TypeToken;
 import comm.constant.MessageType;
 import comm.entity.ChatMessage;
 import comm.entity.User;
+import comm.event.Event;
+import comm.event.EventListener;
 import interface_adapter.ChatClientWebSocket;
 import org.java_websocket.client.WebSocketClient;
 
 import java.net.URISyntaxException;
 import java.util.*;
 
-public class LoginInteractor implements LoginInputBoundary, Observer {
+public class LoginInteractor implements LoginInputBoundary, EventListener {
 
     final LoginOutputBoundary loginPresenter;
     private WebSocketClient webSocketClient;
@@ -33,7 +35,7 @@ public class LoginInteractor implements LoginInputBoundary, Observer {
 
         ChatClientWebSocket chatClientWebSocket = new ChatClientWebSocket();
         WebSocketClient webSocketClient = chatClientWebSocket.createWebSocket(username);
-        chatClientWebSocket.addObserver(this);
+        chatClientWebSocket.eventSource.addEventListener(this);
 
         Gson gson = new Gson();
         ChatMessage chatMessage = new ChatMessage();
@@ -47,10 +49,13 @@ public class LoginInteractor implements LoginInputBoundary, Observer {
         return webSocketClient;
     }
 
+
+
+
     @Override
-    public void update(Observable o, Object arg) {
+    public void handleEvent(Event event) {
         Gson gson = new Gson();
-        ChatMessage chatMessage = gson.fromJson(arg.toString(), ChatMessage.class);
+        ChatMessage chatMessage = gson.fromJson(event.getData().toString(), ChatMessage.class);
         if (chatMessage.getMessageType().equals(MessageType.LOGIN)) {
             Map<String, Object> data = chatMessage.getData();
             String username = data.get("username").toString();
@@ -71,6 +76,4 @@ public class LoginInteractor implements LoginInputBoundary, Observer {
             }
         }
     }
-
-
 }
