@@ -1,15 +1,15 @@
 package use_case.signup;
 
-import java.time.LocalDateTime;
+
 
 public class SignupOutputData {
 
     private final String username;
-    private LocalDateTime creationTime;
+    private String creationTime;
 
     private boolean useCaseFailed;
 
-    public SignupOutputData(String username, LocalDateTime creationTime, boolean useCaseFailed) {
+    public SignupOutputData(String username, String creationTime, boolean useCaseFailed) {
         this.username = username;
         this.creationTime = creationTime;
         this.useCaseFailed = useCaseFailed;
@@ -19,11 +19,11 @@ public class SignupOutputData {
         return username;
     }
 
-    public LocalDateTime getCreationTime() {
+    public String getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(LocalDateTime creationTime) {
+    public void setCreationTime(String creationTime) {
         this.creationTime = creationTime;
     }
 
