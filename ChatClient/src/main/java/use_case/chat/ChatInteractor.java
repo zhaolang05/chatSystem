@@ -108,41 +108,6 @@ public class ChatInteractor implements ChatInputBoundary, EventListener {
         this.webSocketClient.send(gson.toJson(message));
     }
 
-    @Override
-    public void sendMessage(String friend, String message, String messageType) {
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.setMessageType(messageType);
-        Map<String, Object> data = new HashMap<>();
-        data.put("message", message);
-        data.put("touser", friend);
-        chatMessage.setData(data);
-        Gson gson = new Gson();
-        if (this.webSocketClient.isClosed()) {
-            try {
-                connect(userName);
-            } catch (Exception ex) {
-                log.error("connect error", ex);
-            }
-        }
-        this.webSocketClient.send(gson.toJson(chatMessage));
-    }
-
-    @Override
-    public void sendMessage(User user, String messageType) {
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.setMessageType(messageType);
-        Map<String, Object> data = new HashMap<>();
-        data.put("user", user);
-        chatMessage.setData(data);
-        Gson gson = new Gson();
-        if (this.webSocketClient.isClosed()) {
-            try {
-                connect(userName);
-            } catch (Exception ex) {
-                log.error("connect error", ex);
-            }
-        }
-        this.webSocketClient.send(gson.toJson(chatMessage));
     }
 
 
