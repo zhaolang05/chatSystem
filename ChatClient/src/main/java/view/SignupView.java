@@ -1,9 +1,11 @@
 package view;
 
 
+import app.ChatClientApplication;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
+import view.comm.MyTools;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,16 +22,16 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final SignupViewModel signupViewModel;
     private final JTextField usernameInputField = new JTextField(15);
     private final JPasswordField passwordInputField = new JPasswordField(15);
-    private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
+    private final JPasswordField repeatPasswordInputField = new JPasswordField(13);
 
 
     private final JTextField personalizedSignInputField = new JTextField(15);
 
-    private final JTextField avatarInputField = new JTextField(15);
-    private final JTextArea profileInputField = new JTextArea(2,10);
+    private final JTextField avatarInputField = new JTextField(11);
+    private final JTextArea profileInputField = new JTextArea(2,18);
     private final SignupController signupController;
 
-
+    public JComboBox<ImageIcon> avatarComboBox;
     private final JButton signUp;
     private final JButton cancel;
 
@@ -51,8 +53,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
 
 
-        LabelTextPanel avatarInfo = new LabelTextPanel(
-                new JLabel(SignupViewModel.AVATAR_LABEL), avatarInputField);
 
         LabelTextPanel personalizedSignInfo = new LabelTextPanel(
                 new JLabel(SignupViewModel.PERSONALIZEDSIGN_LABEL), personalizedSignInputField);
@@ -60,8 +60,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
 
 
-        JLabel profileLabel= new JLabel(SignupViewModel.PROFILE_LABEL);
-        JScrollPane profilePane = new JScrollPane(profileInputField);
+        JPanel profileInfo=new JPanel();
+        profileInfo.add(new JLabel(SignupViewModel.PROFILE_LABEL));
+        profileInfo.add(profileInputField);
 
         JPanel buttons = new JPanel();
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
@@ -140,7 +141,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     @Override
                     public void keyTyped(KeyEvent e) {
                         SignupState currentState = signupViewModel.getState();
-                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
+                        currentState.setPassword(new String(passwordInputField.getPassword())+ e.getKeyChar());
                         signupViewModel.setState(currentState);
                     }
 
@@ -161,7 +162,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     @Override
                     public void keyTyped(KeyEvent e) {
                         SignupState currentState = signupViewModel.getState();
-                        currentState.setRepeatPassword(repeatPasswordInputField.getText() + e.getKeyChar());
+                        currentState.setRepeatPassword(new String(repeatPasswordInputField.getPassword()) + e.getKeyChar());
                         signupViewModel.setState(currentState); // Hmm, is this necessary?
                     }
 
@@ -195,38 +196,45 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     }
                 }
         );
-        avatarInputField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-                        SignupState currentState = signupViewModel.getState();
-                        currentState.setAvatar(avatarInputField.getText() + e.getKeyChar());
-                        signupViewModel.setState(currentState); // Hmm, is this necessary?
-                    }
-                    @Override
-                    public void keyPressed(KeyEvent e) {
 
-                    }
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-
-                    }
+        avatarComboBox = new JComboBox<ImageIcon>();
+        JPanel avatarInfo= new JPanel();
+        avatarInfo.add(new JLabel(SignupViewModel.AVATAR_LABEL));
+        avatarInfo.add(avatarComboBox);
+        avatarInputField.setEnabled(false);
+        avatarInputField.setBackground(Color.getColor("EEEEEE"));
+        avatarInfo.add(avatarInputField);
+        avatarComboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                JComboBox comboBox = (JComboBox) event.getSource();
+                String command = event.getActionCommand();
+                if  ("comboBoxChanged".equals(command)) {
+                   avatarInputField.setText(String.valueOf(comboBox.getSelectedIndex()));
                 }
-        );
-
-
+            }
+        });
+        initavatar();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
-        this.add(profileLabel);
-        this.add(profilePane);
+        this.add(profileInfo);
+
         this.add(personalizedSignInfo);
         this.add(avatarInfo);
         this.add(buttons);
     }
+
+    public void initavatar() {
+        avatarComboBox.removeAllItems();
+        for(int i=0;i<16;i++)
+        {
+            avatarComboBox.addItem(MyTools.getIcon("/img/headImage/small/"+i+"_32.jpg"));
+        }
+    }
+
 
     /**
      * React to a button click that results in evt.

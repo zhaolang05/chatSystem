@@ -24,19 +24,7 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.28/a2ff5da8bcd8b1b26f36b806ced63213362c6dcc/lombok-1.18.28.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/da76ca59f6a57ee3102f8f9bd9cee742973efa8a/slf4j-api-1.7.25.jar" />
         </processorPath>
-        <module name="chatSystem.ChatClient.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ChatClient" target="1.8" />
-      <module name="ChatClient.main" target="1.8" />
-      <module name="ChatClient.test" target="1.8" />
-      <module name="ChatComm" target="1.8" />
-      <module name="ChatComm.main" target="1.8" />
-      <module name="ChatComm.test" target="1.8" />
-      <module name="ChatServer" target="1.8" />
-      <module name="ChatServer.main" target="1.8" />
-      <module name="ChatServer.test" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
