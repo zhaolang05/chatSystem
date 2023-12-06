@@ -145,7 +145,6 @@ public class ChatInteractor implements ChatInputBoundary, EventListener {
         this.webSocketClient.send(gson.toJson(chatMessage));
     }
 
-
     @Override
     public void handleEvent(Event event) {
         Gson gson = new Gson();
