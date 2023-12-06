@@ -5,7 +5,6 @@ public class User {
     private String name;
     private String password;
     private String creationTime;
-
     private String personalizedSign;
 
     private String profile;

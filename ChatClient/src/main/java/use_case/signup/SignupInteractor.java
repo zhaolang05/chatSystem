@@ -4,21 +4,19 @@ import com.google.gson.Gson;
 import comm.constant.MessageType;
 import comm.entity.ChatMessage;
 import comm.entity.User;
+import comm.event.Event;
+import comm.event.EventListener;
 import interface_adapter.ChatClientWebSocket;
 import lombok.extern.slf4j.Slf4j;
 import org.java_websocket.client.WebSocketClient;
 
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
-import static java.time.LocalTime.now;
 
 @Slf4j
-public class SignupInteractor implements SignupInputBoundary, Observer {
+public class SignupInteractor implements SignupInputBoundary, EventListener {
 
     final SignupOutputBoundary userPresenter;
     private ChatClientWebSocket chatClientWebSocket;
@@ -34,13 +32,14 @@ public class SignupInteractor implements SignupInputBoundary, Observer {
             userPresenter.prepareFailView("Passwords don't match.");
             return;
         }
-        LocalDateTime now = LocalDateTime.now();
+        Date now = new Date();
         String username = signupInputData.getUsername();
-        User user = new User(signupInputData.getUsername(), signupInputData.getPassword(),signupInputData.getProfile(), now,signupInputData.getPersonalizedSign(),signupInputData.getAvatar());
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        User user = new User(signupInputData.getUsername(), signupInputData.getPassword(),signupInputData.getProfile(), sdf.format(now),signupInputData.getPersonalizedSign(),signupInputData.getAvatar());
         chatClientWebSocket = new ChatClientWebSocket();
         try {
             webSocketClient = chatClientWebSocket.createWebSocket(username);
-            chatClientWebSocket.addObserver(this);
+            chatClientWebSocket.eventSource.addEventListener(this);
             Gson gson = new Gson();
             ChatMessage chatMessage = new ChatMessage();
             chatMessage.setMessageType(MessageType.ADD_USER);
@@ -58,14 +57,16 @@ public class SignupInteractor implements SignupInputBoundary, Observer {
         userPresenter.toLogin();
     }
 
+
+
     @Override
-    public void update(Observable o, Object arg) {
+    public void handleEvent(Event event) {
         Gson gson = new Gson();
-        ChatMessage chatMessage = gson.fromJson(arg.toString(), ChatMessage.class);
+        ChatMessage chatMessage = gson.fromJson(event.getData().toString(), ChatMessage.class);
         if (chatMessage.getMessageType().equals(MessageType.ADD_USER)) {
             Map<String, Object> data = chatMessage.getData();
 
-            String userinfo=chatMessage.getData().get("user").toString();
+            String userinfo=gson.toJson(chatMessage.getData().get("user"));
             User  user= gson.fromJson(userinfo, User.class);
             if (chatMessage.getCode().equals("-1")) {
                 userPresenter.prepareFailView(user.getName() + ": " + chatMessage.getMessage());
