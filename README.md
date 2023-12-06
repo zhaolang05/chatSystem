@@ -3,45 +3,59 @@
 ## Project Setup
 JDK >= 17
 
-## Setting up the Database
+## API usage
+- WebSocket
+
+## API Endpoints
+
+- http://127.0.0.1:8080/Data/getFriendList?user_name=zhao
+- http://127.0.0.1:8080/Data/getUserList
 
 ## Running the application
-Run the main method - **TBA**
+Running ChatServerApplication and ChatClientApplication will run the server and the client application.
+
 ## Account Creation Notes
 ### Function
 - Sign up & sign in
-- illegal username and password check: only check for illegal symbal and whehter it is exist.
-### Possible Additional Function
+- Username check: whether the username exists and password check: whether it matches when entering the second time.
+### Possible Additional Function in the future
 - Multiple account creation
-- Sign in with other account (example: Google account)
-### API Interaction - TBA
+- Illegal username and password check: check for illegal symbal.
 
 ## Account Modification Notes
 ### Function
 - Change username
 - Change password
 - Change personal profile
-### Possible Additional Function
-- Upload an avatar to personal profile (using .jpg file)
-### API Interaction - TBA
 
 ## User Interaction Notes
 Friend limit :10 (increase or decrease by changing the FRIEND_LIMIT in SendFriendRequestHelper)
 ### Function
 - Search friends
-- Send friend requests
-- Add & delete friends
-- Accept or deny friend request
+- Add friends
 - Look through friend list
-### Possible Additional Function
-- Look through friend's profile
-### API Interaction - TBA
+
+### Possible Additional Function in the future
+- Send friend requests
+- Agree or deny a friend requests
 
 ## Chat System Notes
 ### Function 
-- Send & receive message[text]
-### Possible Additional Function
-- Search for chat history[by text]
-### API Interaction - TBA
+- Send & receive & save message
+### Possible Additional Function in the future
+- Search for chat history
 
-## Testing notes
+### Possible Additional Function
+- Look through friend's profile
+### Chat Server API 
+- Search friends
+- Send friend requests
+- Add & delete friends
+- Accept or deny friend request
+## Chat System Notes
+### Function 
+- Send & receive & save message[text]
+### Possible Additional Function
+- Search for chat history[by text][only local message]
+
+
