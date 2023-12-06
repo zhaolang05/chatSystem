@@ -3,10 +3,11 @@ package comm.entity;
 import java.util.List;
 import java.util.Map;
 
-public class Friend {
+public class Friend implements UserAggregate {
     private String name;
-    private Map<String,List<String>> friendsNameGroup;
-    private Map<String,List<User>> friendsGroup;
+    private Map<String, List<String>> friendsNameGroup;
+    private Map<String, List<User>> friendsGroup;
+
 
 
     public Map<String, List<User>> getFriendsGroup() {
@@ -18,12 +19,24 @@ public class Friend {
     }
 
     private List<User> friends;
+    private UserListIterator users;
 
-    public Friend(String name,Map<String,List<String>> friendName)
-    {
-        this.name=name;
-        this.friendsNameGroup =friendName;
+    public boolean existFriend(String userName) {
+        while (users.hasNext()) {
+            User user = users.next();
+            if (user.getName().equals(userName)) {
+                return true;
+            }
+        }
+        return false;
     }
+
+
+    public Friend(String name, Map<String, List<String>> friendName) {
+        this.name = name;
+        this.friendsNameGroup = friendName;
+    }
+
     public String getName() {
         return name;
     }
@@ -47,4 +60,17 @@ public class Friend {
     public void setFriends(List<User> friends) {
         this.friends = friends;
     }
+
+    @Override
+    public UserIterator iterator() {
+        return new UserListIterator(friends);
+    }
+
+    @Override
+    public void add(User user) {
+        friends.add(user);
+    }
+
+
+
 }
