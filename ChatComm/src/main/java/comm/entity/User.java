@@ -1,12 +1,11 @@
 package comm.entity;
 
-import java.time.LocalDateTime;
-
 public class User {
     private Integer id;
     private String name;
     private String password;
-    private LocalDateTime creationTime;
+    private String creationTime;
+
     private String personalizedSign;
 
     private String profile;
@@ -51,14 +50,25 @@ public class User {
     }
 
 
-    public User(String name, String password, String profile, LocalDateTime creationTime,String personalizedSign,String avatar) {
+    public User(String name, String password, String profile, String creationTime, String personalizedSign, String avatar) {
 
         this.name = name;
         this.password = password;
         this.profile = profile;
         this.creationTime = creationTime;
-        this.personalizedSign=personalizedSign;
-        this.avatar=avatar;
+        this.personalizedSign = personalizedSign;
+        this.avatar = avatar;
+    }
+
+    public User getCopy() {
+        User user = new User();
+        user.setName(user.getName());
+        user.setPassword(user.getPassword());
+        user.setOnline(user.getOnline());
+        user.setAvatar(user.getAvatar());
+        user.setProfile(user.getProfile());
+        user.setPersonalizedSign(user.getPersonalizedSign());
+        return user;
     }
 
     public String getName() {
@@ -66,7 +76,7 @@ public class User {
     }
 
     public void setName(String name) {
-        name = name;
+        this.name = name;
     }
 
     public String getPassword() {
@@ -85,11 +95,11 @@ public class User {
         this.profile = profile;
     }
 
-    public LocalDateTime getCreationTime() {
+    public String getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(LocalDateTime creationTime) {
+    public void setCreationTime(String creationTime) {
         this.creationTime = creationTime;
     }
 }
